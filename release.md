@@ -116,7 +116,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - PostgreSQL 연결 성공
   - User, Course, Company 기본 테이블 생성
   - JPA Repository 정상 동작
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 #### User Story 2: TDD 환경 설정 및 샘플 테스트 작성
 - **Given**: Jest(Frontend), JUnit(Backend) 테스트 환경이 설정됨
@@ -126,7 +126,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - 단위 테스트 환경 구축
   - 테스트 커버리지 80% 이상
   - CI/CD 테스트 자동화
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 #### User Story 3: 기본 도메인 모델 설계
 - **Given**: 클린 아키텍처 기반 도메인 모델이 필요함
@@ -136,7 +136,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - Domain Entity 정의
   - Repository Interface 정의
   - Service Layer 구현
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 ### Sprint #2 - 웹 표준 준수 및 보안 기본 설정 (Week 3)
 **목표**: SFR-001 시스템 표준 준수, SFR-011 보안 기능 기본 구현
