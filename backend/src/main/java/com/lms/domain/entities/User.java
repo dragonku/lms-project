@@ -48,7 +48,7 @@ public class User {
     private String name;
 
     @Column(length = 20)
-    private String phone;
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type", nullable = false)
@@ -56,7 +56,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserStatus status = UserStatus.ACTIVE;
+    private Status status = Status.ACTIVE;
+
+    @Column(name = "is_employee", nullable = false)
+    private Boolean isEmployee = false;
+
+    @Column(length = 100)
+    private String department;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
@@ -72,23 +78,26 @@ public class User {
 
     @Builder
     public User(String username, String password, String email, String name, 
-                String phone, UserType userType, UserStatus status, Company company) {
+                String phoneNumber, UserType userType, Status status, Company company,
+                Boolean isEmployee, String department) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.userType = userType;
-        this.status = status != null ? status : UserStatus.ACTIVE;
+        this.status = status != null ? status : Status.ACTIVE;
         this.company = company;
+        this.isEmployee = isEmployee != null ? isEmployee : false;
+        this.department = department;
     }
 
     /**
      * 사용자 정보 수정
      */
-    public void updateProfile(String name, String phone, String email) {
+    public void updateProfile(String name, String phoneNumber, String email) {
         this.name = name;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
@@ -102,7 +111,7 @@ public class User {
     /**
      * 사용자 상태 변경
      */
-    public void changeStatus(UserStatus status) {
+    public void changeStatus(Status status) {
         this.status = status;
     }
 
@@ -131,14 +140,14 @@ public class User {
      * 활성 상태 확인
      */
     public boolean isActive() {
-        return this.status == UserStatus.ACTIVE;
+        return this.status == Status.ACTIVE;
     }
 
     /**
      * 재직자 여부 확인
      */
-    public boolean isEmployee() {
-        return this.userType == UserType.STUDENT && this.company != null;
+    public Boolean getIsEmployee() {
+        return this.isEmployee;
     }
 
     /**
@@ -164,7 +173,7 @@ public class User {
     /**
      * 사용자 상태 열거형
      */
-    public enum UserStatus {
+    public enum Status {
         ACTIVE("활성"),
         INACTIVE("비활성"),
         PENDING("승인대기"),
@@ -172,7 +181,7 @@ public class User {
 
         private final String description;
 
-        UserStatus(String description) {
+        Status(String description) {
             this.description = description;
         }
 
