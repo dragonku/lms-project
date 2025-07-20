@@ -21,14 +21,10 @@ node_modules/
 
 # Gradle
 .gradle/
-gradle-wrapper-*.jar
-gradle-*.zip
-*.zip
+!backend/gradle/wrapper/gradle-wrapper.jar
 
 # Java
 *.class
-*.jar
-!gradle-wrapper.jar
 
 # Test
 *.tmp
