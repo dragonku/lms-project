@@ -46,3 +46,6 @@ pids/
 
 # Docker
 .dockerignore
+
+# YoYo AI version control directory
+.yoyo/

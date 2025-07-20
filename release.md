@@ -150,7 +150,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - W3C 웹 표준 유효성 검사를 통과한다
   - Active-X 등 비표준 기술을 사용하지 않는다
   - 공공기관 표준화 지침 준수
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 #### User Story 2: 기본 보안 설정 구현 (SFR-011)
 - **Given**: 보안 요구사항이 정의됨
