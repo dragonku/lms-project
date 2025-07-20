@@ -44,7 +44,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * 사용자 상태별 조회
      */
-    List<User> findByStatus(User.UserStatus status);
+    List<User> findByStatus(User.Status status);
 
     /**
      * 특정 회사 소속 직원 조회
@@ -56,7 +56,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     @Query("SELECT u FROM User u WHERE u.userType = :userType AND u.status = :status AND u.company IS NOT NULL")
     List<User> findPendingEmployees(@Param("userType") User.UserType userType, 
-                                   @Param("status") User.UserStatus status);
+                                   @Param("status") User.Status status);
 
     /**
      * 활성 상태의 관리자 조회

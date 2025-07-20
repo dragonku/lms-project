@@ -90,7 +90,14 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
 - **Given**: Jest(Frontend), JUnit(Backend) 테스트 환경이 설정됨
 - **When**: 개발자가 UserService에 대한 테스트를 작성할 때
 - **Then**: Red-Green-Refactor 사이클이 정상 동작하고 80% 이상 커버리지가 확보됨
-- **Status**: ⏳ Pending
+- **Acceptance Criteria**:
+  - JUnit 5 + Mockito + AssertJ 테스트 스택 구성
+  - TestContainers로 통합 테스트 환경 구축
+  - TDD로 CreateUserUseCase 구현 완료
+  - TDD로 UserController API 구현 완료
+  - Jacoco 테스트 커버리지 80% 목표 설정
+  - TDD 가이드 문서 작성 완료
+- **Status**: ✅ Completed
 
 #### User Story 4: CI/CD 파이프라인 기본 설정
 - **Given**: GitHub Actions 워크플로우가 필요함
