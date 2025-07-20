@@ -103,7 +103,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
 - **Given**: GitHub Actions 워크플로우가 필요함
 - **When**: 개발자가 코드를 푸시할 때
 - **Then**: 자동으로 빌드, 테스트, 린트 검사가 실행됨
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 ### Sprint #1 - 아키텍처 검증 및 기본 Entity (Week 2)
 **목표**: 데이터베이스 연결, 기본 Entity 생성, TDD 환경 구축
