@@ -1,5 +1,14 @@
-# Production-ready Spring Boot application with Java 17
-FROM openjdk:17-jdk-slim as builder
+# Ubuntu-based Dockerfile for maximum compatibility
+FROM ubuntu:22.04 as builder
+
+# Install Java 17 and other build tools
+RUN apt-get update && apt-get install -y \
+    openjdk-17-jdk \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 WORKDIR /app
 
@@ -19,18 +28,22 @@ RUN chmod +x ./gradlew
 RUN ./gradlew build -x test -x checkstyleMain -x checkstyleTest --no-daemon
 
 # Runtime stage
-FROM openjdk:17-jre-slim
+FROM ubuntu:22.04
+
+# Install Java 17 JRE and other runtime tools
+RUN apt-get update && apt-get install -y \
+    openjdk-17-jre \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 # Add non-root user for security
 RUN groupadd -r lms && useradd -r -g lms lms
 
 # Set working directory
 WORKDIR /app
-
-# Install required packages
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
 
 # Copy the built jar from builder stage
 COPY --from=builder /app/build/libs/*.jar app.jar
