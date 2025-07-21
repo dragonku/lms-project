@@ -1,7 +1,5 @@
-# Multi-stage build for production-ready Spring Boot application
-
-# Stage 1: Build stage  
-FROM openjdk:21-jdk as builder
+# Production-ready Spring Boot application with Java 17
+FROM openjdk:17-jdk-slim as builder
 
 WORKDIR /app
 
@@ -20,8 +18,8 @@ RUN chmod +x ./gradlew
 # Build the application
 RUN ./gradlew build -x test -x checkstyleMain -x checkstyleTest --no-daemon
 
-# Stage 2: Runtime stage
-FROM openjdk:21-jre
+# Runtime stage
+FROM openjdk:17-jre-slim
 
 # Add non-root user for security
 RUN groupadd -r lms && useradd -r -g lms lms
@@ -29,10 +27,9 @@ RUN groupadd -r lms && useradd -r -g lms lms
 # Set working directory
 WORKDIR /app
 
-# Install required packages for security and monitoring
+# Install required packages
 RUN apt-get update && apt-get install -y \
     curl \
-    dumb-init \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the built jar from builder stage
@@ -51,16 +48,10 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:8080/api/health || exit 1
 
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
-
 # Run the application with production settings
 CMD ["java", \
      "-XX:+UseContainerSupport", \
      "-XX:MaxRAMPercentage=75.0", \
-     "-XX:+UseG1GC", \
-     "-XX:+UnlockExperimentalVMOptions", \
-     "-XX:+UseCGroupMemoryLimitForHeap", \
      "-Djava.security.egd=file:/dev/./urandom", \
      "-Dspring.profiles.active=prod", \
      "-jar", "app.jar"]
