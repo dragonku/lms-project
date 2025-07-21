@@ -1,6 +1,6 @@
 package com.lms.domain.entities;
 
-import com.lms.config.TestJpaConfig;
+
 import com.lms.domain.repositories.CompanyRepository;
 import com.lms.domain.repositories.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @ActiveProfiles("test")
-@Import(TestJpaConfig.class)
+
 @DisplayName("User Entity 테스트")
 class UserEntityTest {
 
@@ -41,9 +41,9 @@ class UserEntityTest {
                 .password("password123")
                 .email("test@example.com")
                 .name("테스트 사용자")
-                .phone("010-1234-5678")
+                .phoneNumber("010-1234-5678")
                 .userType(User.UserType.STUDENT)
-                .status(User.UserStatus.ACTIVE)
+                .status(User.Status.ACTIVE)
                 .build();
 
         // When
@@ -56,7 +56,7 @@ class UserEntityTest {
         assertThat(savedUser.getEmail()).isEqualTo("test@example.com");
         assertThat(savedUser.getName()).isEqualTo("테스트 사용자");
         assertThat(savedUser.getUserType()).isEqualTo(User.UserType.STUDENT);
-        assertThat(savedUser.getStatus()).isEqualTo(User.UserStatus.ACTIVE);
+        assertThat(savedUser.getStatus()).isEqualTo(User.Status.ACTIVE);
         assertThat(savedUser.getCreatedAt()).isNotNull();
         assertThat(savedUser.getUpdatedAt()).isNotNull();
     }
@@ -109,7 +109,7 @@ class UserEntityTest {
         User updatedUser = userRepository.findById(savedUser.getId()).orElse(null);
         assertThat(updatedUser).isNotNull();
         assertThat(updatedUser.getName()).isEqualTo("수정 후 이름");
-        assertThat(updatedUser.getPhone()).isEqualTo("010-9999-8888");
+        assertThat(updatedUser.getPhoneNumber()).isEqualTo("010-9999-8888");
         assertThat(updatedUser.getEmail()).isEqualTo("after@example.com");
     }
 
@@ -157,6 +157,7 @@ class UserEntityTest {
                 .name("직원")
                 .userType(User.UserType.STUDENT)
                 .company(savedCompany)
+                .isEmployee(true)
                 .build();
 
         // When
@@ -166,7 +167,7 @@ class UserEntityTest {
         // Then
         assertThat(savedEmployee.getCompany()).isNotNull();
         assertThat(savedEmployee.getCompany().getName()).isEqualTo("테스트 회사");
-        assertThat(savedEmployee.isEmployee()).isTrue();
+        assertThat(savedEmployee.getIsEmployee()).isTrue();
     }
 
     @Test
@@ -179,7 +180,7 @@ class UserEntityTest {
                 .email("admin@example.com")
                 .name("관리자")
                 .userType(User.UserType.ADMIN)
-                .status(User.UserStatus.ACTIVE)
+                .status(User.Status.ACTIVE)
                 .build();
 
         User instructor = User.builder()
@@ -188,7 +189,7 @@ class UserEntityTest {
                 .email("instructor@example.com")
                 .name("강사")
                 .userType(User.UserType.INSTRUCTOR)
-                .status(User.UserStatus.INACTIVE)
+                .status(User.Status.INACTIVE)
                 .build();
 
         // When & Then

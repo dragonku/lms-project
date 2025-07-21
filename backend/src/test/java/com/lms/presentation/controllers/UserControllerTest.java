@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lms.application.dto.request.CreateUserRequest;
 import com.lms.application.dto.response.UserResponse;
 import com.lms.application.usecases.user.CreateUserUseCase;
-import com.lms.config.TddTestConfig;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * - JSON 직렬화/역직렬화 테스트
  */
 @WebMvcTest(UserController.class)
-@Import(TddTestConfig.class)
+
 @ActiveProfiles("test")
 @DisplayName("사용자 컨트롤러 TDD 테스트")
 class UserControllerTest {
@@ -55,19 +55,16 @@ class UserControllerTest {
                 .username("testuser")
                 .email("test@example.com")
                 .password("password123")
-                .userType("STUDENT")
-                .isEmployee(false)
+                .name("Test User") // Added name field
+                .role("STUDENT")
                 .build();
 
         UserResponse response = UserResponse.builder()
                 .id(1L)
                 .username("testuser")
                 .email("test@example.com")
-                .userType("STUDENT")
-                .status("ACTIVE")
-                .isEmployee(false)
-                .createdAt(LocalDateTime.of(2023, 11, 20, 10, 30, 0))
-                .updatedAt(LocalDateTime.of(2023, 11, 20, 10, 30, 0))
+                .name("Test User") // Added name field
+                .role("STUDENT")
                 .build();
 
         given(createUserUseCase.execute(any(CreateUserRequest.class))).willReturn(response);
@@ -83,9 +80,7 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.username").value("testuser"))
                 .andExpect(jsonPath("$.data.email").value("test@example.com"))
-                .andExpect(jsonPath("$.data.userType").value("STUDENT"))
-                .andExpect(jsonPath("$.data.status").value("ACTIVE"))
-                .andExpect(jsonPath("$.data.isEmployee").value(false));
+                .andExpect(jsonPath("$.data.role").value("STUDENT"));
     }
 
     @Test
@@ -94,10 +89,9 @@ class UserControllerTest {
         // Given: 잘못된 요청 (이메일 누락)
         CreateUserRequest request = CreateUserRequest.builder()
                 .username("testuser")
-                // email 누락
+                .name("Test User") // Added name field
                 .password("password123")
-                .userType("STUDENT")
-                .isEmployee(false)
+                .role("STUDENT")
                 .build();
 
         // When & Then: 유효성 검증 실패
@@ -119,8 +113,8 @@ class UserControllerTest {
                 .username("testuser")
                 .email("duplicate@example.com")
                 .password("password123")
-                .userType("STUDENT")
-                .isEmployee(false)
+                .name("Test User")
+                .role("STUDENT")
                 .build();
 
         given(createUserUseCase.execute(any(CreateUserRequest.class)))

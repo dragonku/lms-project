@@ -3,7 +3,7 @@ package com.lms.presentation.controllers;
 import com.lms.application.dto.request.CreateUserRequest;
 import com.lms.application.dto.response.UserResponse;
 import com.lms.application.usecases.user.CreateUserUseCase;
-import com.lms.presentation.dto.ApiResponse;
+import com.lms.application.dto.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

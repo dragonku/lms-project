@@ -37,10 +37,41 @@ spring:
         exposure:
           include: health,info,metrics
 
+# JWT 보안 설정
+jwt:
+  secret: ${JWT_SECRET:LmsSecretKeyForDevelopmentOnlyNotForProductionUseVeryLongSecretKeyForHS512Algorithm2024!@#$}
+  expiration: ${JWT_EXPIRATION:86400000} # 24시간 (밀리초)
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000} # 7일 (밀리초)
+
+# 보안 설정
+security:
+  password:
+    min-length: 8
+    require-uppercase: true
+    require-lowercase: true
+    require-numbers: true
+    require-special-chars: true
+  
+  session:
+    timeout-minutes: 30
+    max-concurrent-sessions: 1
+  
+  rate-limiting:
+    login-attempts:
+      max-attempts: 5
+      window-minutes: 15
+    
+  audit:
+    enabled: true
+    log-failed-attempts: true
+    log-access-denied: true
+
 server:
   port: 8080
   servlet:
     context-path: /api
+    session:
+      timeout: 30m
 
 logging:
   level:

@@ -1,6 +1,6 @@
 package com.lms.domain.entities;
 
-import com.lms.config.TestJpaConfig;
+
 import com.lms.domain.repositories.CompanyRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @ActiveProfiles("test")
-@Import(TestJpaConfig.class)
+
 @DisplayName("Company Entity 테스트")
 class CompanyEntityTest {
 

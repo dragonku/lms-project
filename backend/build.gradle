@@ -3,6 +3,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
     id 'jacoco'
+    id 'com.github.spotbugs' version '5.2.5'
+    id 'checkstyle'
+    id 'org.owasp.dependencycheck' version '8.4.3'
 }
 
 group = 'com.lms'
@@ -49,6 +52,7 @@ dependencies {
     // Testing Dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'com.h2database:h2'
@@ -71,7 +75,7 @@ tasks.named('test') {
 
 // Jacoco Configuration for Test Coverage
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.11"
 }
 
 jacocoTestReport {
@@ -139,4 +143,77 @@ task tddRed(type: Test) {
         events "failed"
         exceptionFormat "full"
     }
+}
+
+// SpotBugs Configuration
+spotbugs {
+    toolVersion = '4.8.3'
+    ignoreFailures = true
+    showStackTraces = true
+    showProgress = true
+    effort = 'max'
+    reportLevel = 'medium'
+}
+
+spotbugsMain {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+        xml {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main.xml")
+        }
+    }
+}
+
+// Checkstyle Configuration
+checkstyle {
+    toolVersion = '10.12.4'
+    ignoreFailures = true
+}
+
+checkstyleMain {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+// OWASP Dependency Check Configuration
+dependencyCheck {
+    format = 'HTML'
+    suppressionFile = 'config/owasp/suppressions.xml'
+    failBuildOnCVSS = 0
+    analyzers {
+        experimentalEnabled = false
+        archiveEnabled = false
+        jarEnabled = true
+        centralEnabled = true
+        nexusEnabled = false
+        pyDistributionEnabled = false
+        pyPackageEnabled = false
+        rubygemsEnabled = false
+        opensslEnabled = false
+        cmakeEnabled = false
+        autoconfEnabled = false
+        composerEnabled = false
+        nodeEnabled = false
+        nuspecEnabled = false
+        assemblyEnabled = false
+    }
+}
+
+// Quality Check Task
+task qualityCheck(dependsOn: [checkstyleMain, spotbugsMain, dependencyCheckAnalyze]) {
+    description = "Run all quality checks"
+    group = "verification"
+}
+
+// Security Check Task
+task securityCheck(dependsOn: [dependencyCheckAnalyze]) {
+    description = "Run security vulnerability checks"
+    group = "verification"
 }
