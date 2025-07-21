@@ -2,9 +2,9 @@ services:
   - type: web
     name: lms-backend
     env: docker
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: backend/Dockerfile.ubuntu
     plan: free
-    branch: main
+    branch: feature/sprint-2-user-story-2-security-settings
     healthCheckPath: /api/health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
