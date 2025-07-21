@@ -14,20 +14,20 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
 
 ## 릴리스 개요
 
-| Release | 기간 | 주요 기능 | Sprint 구성 | SFR 매핑 |
-|---------|------|-----------|-------------|----------|
-| 0.1 | Week 1-3 | 아키텍처 & 기반 시설 | #0, #1, #2 | SFR-001, SFR-011 |
-| 0.2 | Week 4-6 | 사용자 관리 & 인증 | #3, #4, #5 | SFR-005, SFR-008, SFR-009, SFR-012 |
-| 0.3 | Week 7-9 | 과정 관리 & 수강 신청 | #6, #7, #8 | SFR-007, SFR-010, SFR-014, SFR-018 |
-| 0.4 | Week 10-12 | 교육 관리 & 평가 시스템 | #9, #10, #11 | SFR-019, SFR-024, SFR-025, SFR-026, SFR-027 |
-| 0.5 | Week 13-15 | 협약사 관리 & 통계 | #12, #13, #14 | SFR-013, SFR-015, SFR-016, SFR-017, SFR-020, SFR-021, SFR-022, SFR-023 |
-| 1.0 | Week 16-18 | 공통기능 & 최적화 | #15, #16, #17 | SFR-002, SFR-003, SFR-004, SFR-006 |
+| Release | 기간 | 주요 기능 | Sprint 구성 | SFR 매핑 | Status |
+|---------|------|-----------|-------------|----------|--------|
+| 0.1 | Week 1-3 | 아키텍처 & 기반 시설 | #0, #1, #2 | SFR-001, SFR-011 | 🚀 In Progress |
+| 0.2 | Week 4-6 | 사용자 관리 & 인증 | #3, #4, #5 | SFR-005, SFR-008, SFR-009, SFR-012 | ⏳ Pending |
+| 0.3 | Week 7-9 | 과정 관리 & 수강 신청 | #6, #7, #8 | SFR-007, SFR-010, SFR-014, SFR-018 | ⏳ Pending |
+| 0.4 | Week 10-12 | 교육 관리 & 평가 시스템 | #9, #10, #11 | SFR-019, SFR-024, SFR-025, SFR-026, SFR-027 | ⏳ Pending |
+| 0.5 | Week 13-15 | 협약사 관리 & 통계 | #12, #13, #14 | SFR-013, SFR-015, SFR-016, SFR-017, SFR-020, SFR-021, SFR-022, SFR-023 | ⏳ Pending |
+| 1.0 | Week 16-18 | 공통기능 & 최적화 | #15, #16, #17 | SFR-002, SFR-003, SFR-004, SFR-006 | ⏳ Pending |
 
 ## SFR 요구사항 매핑 테이블
 
 | SFR ID | 기능 명칭 | Sprint | User Story | Status |
 |---------|-----------|--------|------------|--------|
-| SFR-001 | 시스템 표준 준수 | #2 | 반응형 웹 구현 | ⏳ Pending |
+| SFR-001 | 시스템 표준 준수 | #2 | 반응형 웹 구현 | ✅ Completed |
 | SFR-002 | 팝업 관리 | #16 | 팝업 관리 시스템 | ⏳ Pending |
 | SFR-003 | 게시판 시스템 | #15 | 공통 게시판 시스템 | ⏳ Pending |
 | SFR-004 | 설문 시스템 | #16 | 설문 결과 시각화 | ⏳ Pending |
@@ -90,13 +90,20 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
 - **Given**: Jest(Frontend), JUnit(Backend) 테스트 환경이 설정됨
 - **When**: 개발자가 UserService에 대한 테스트를 작성할 때
 - **Then**: Red-Green-Refactor 사이클이 정상 동작하고 80% 이상 커버리지가 확보됨
-- **Status**: ⏳ Pending
+- **Acceptance Criteria**:
+  - JUnit 5 + Mockito + AssertJ 테스트 스택 구성
+  - TestContainers로 통합 테스트 환경 구축
+  - TDD로 CreateUserUseCase 구현 완료
+  - TDD로 UserController API 구현 완료
+  - Jacoco 테스트 커버리지 80% 목표 설정
+  - TDD 가이드 문서 작성 완료
+- **Status**: ✅ Completed
 
 #### User Story 4: CI/CD 파이프라인 기본 설정
 - **Given**: GitHub Actions 워크플로우가 필요함
 - **When**: 개발자가 코드를 푸시할 때
 - **Then**: 자동으로 빌드, 테스트, 린트 검사가 실행됨
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 ### Sprint #1 - 아키텍처 검증 및 기본 Entity (Week 2)
 **목표**: 데이터베이스 연결, 기본 Entity 생성, TDD 환경 구축
@@ -109,7 +116,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - PostgreSQL 연결 성공
   - User, Course, Company 기본 테이블 생성
   - JPA Repository 정상 동작
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 #### User Story 2: TDD 환경 설정 및 샘플 테스트 작성
 - **Given**: Jest(Frontend), JUnit(Backend) 테스트 환경이 설정됨
@@ -119,7 +126,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - 단위 테스트 환경 구축
   - 테스트 커버리지 80% 이상
   - CI/CD 테스트 자동화
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 #### User Story 3: 기본 도메인 모델 설계
 - **Given**: 클린 아키텍처 기반 도메인 모델이 필요함
@@ -129,7 +136,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - Domain Entity 정의
   - Repository Interface 정의
   - Service Layer 구현
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 ### Sprint #2 - 웹 표준 준수 및 보안 기본 설정 (Week 3)
 **목표**: SFR-001 시스템 표준 준수, SFR-011 보안 기능 기본 구현
@@ -143,7 +150,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
   - W3C 웹 표준 유효성 검사를 통과한다
   - Active-X 등 비표준 기술을 사용하지 않는다
   - 공공기관 표준화 지침 준수
-- **Status**: ⏳ Pending
+- **Status**: ✅ Completed
 
 #### User Story 2: 기본 보안 설정 구현 (SFR-011)
 - **Given**: 보안 요구사항이 정의됨
