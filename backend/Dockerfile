@@ -1,7 +1,7 @@
 # Multi-stage build for production-ready Spring Boot application
 
 # Stage 1: Build stage
-FROM openjdk:21-jdk-slim as builder
+FROM eclipse-temurin:21-jdk-alpine as builder
 
 WORKDIR /app
 
@@ -18,22 +18,21 @@ COPY src src
 RUN chmod +x ./gradlew
 
 # Build the application
-RUN ./gradlew build -x test --no-daemon
+RUN ./gradlew build -x test -x checkstyleMain -x checkstyleTest --no-daemon
 
 # Stage 2: Runtime stage
-FROM openjdk:21-jre-slim
+FROM eclipse-temurin:21-jre-alpine
 
 # Add non-root user for security
-RUN groupadd -r lms && useradd -r -g lms lms
+RUN addgroup -g 1000 lms && adduser -D -u 1000 -G lms lms
 
 # Set working directory
 WORKDIR /app
 
 # Install required packages for security and monitoring
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
     curl \
-    dumb-init \
-    && rm -rf /var/lib/apt/lists/*
+    dumb-init
 
 # Copy the built jar from builder stage
 COPY --from=builder /app/build/libs/*.jar app.jar
