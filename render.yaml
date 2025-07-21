@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: lms-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    branch: main
+    healthCheckPath: /api/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SERVER_PORT
+        value: 8080
