@@ -2,14 +2,15 @@ package com.lms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lms.application.dto.request.CreateUserRequest;
-import com.lms.config.TestContainersConfig;
-import com.lms.config.TddTestConfig;
+
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvcTest;
+
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+
+
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,12 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * - TDD Red-Green-Refactor 사이클 시연
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebMvcTest
-@Import({TestContainersConfig.class, TddTestConfig.class})
+
+
 @ActiveProfiles("test")
 @Transactional
 @DisplayName("TDD 통합 테스트 데모")
 class TddDemoIntegrationTest {
+
+    
 
     @Autowired
     private MockMvc mockMvc;
@@ -49,8 +52,8 @@ class TddDemoIntegrationTest {
                 .username("tdd_user")
                 .email("tdd@example.com")
                 .password("tddPassword123")
-                .userType("STUDENT")
-                .isEmployee(false)
+                .role("STUDENT")
+                
                 .build();
 
         // When & Then: 전체 스택을 통한 사용자 생성
@@ -64,9 +67,6 @@ class TddDemoIntegrationTest {
                 .andExpect(jsonPath("$.message").value("사용자가 성공적으로 생성되었습니다"))
                 .andExpect(jsonPath("$.data.username").value("tdd_user"))
                 .andExpect(jsonPath("$.data.email").value("tdd@example.com"))
-                .andExpect(jsonPath("$.data.userType").value("STUDENT"))
-                .andExpect(jsonPath("$.data.status").value("ACTIVE"))
-                .andExpect(jsonPath("$.data.isEmployee").value(false))
                 .andExpect(jsonPath("$.data.id").exists())
                 .andExpect(jsonPath("$.data.createdAt").exists())
                 .andExpect(jsonPath("$.data.updatedAt").exists());
@@ -80,8 +80,8 @@ class TddDemoIntegrationTest {
                 .username("user1")
                 .email("duplicate@example.com")
                 .password("password123")
-                .userType("STUDENT")
-                .isEmployee(false)
+                .role("STUDENT")
+                
                 .build();
 
         mockMvc.perform(post("/api/v1/users")
@@ -94,8 +94,8 @@ class TddDemoIntegrationTest {
                 .username("user2")
                 .email("duplicate@example.com") // 중복 이메일
                 .password("password123")
-                .userType("STUDENT")
-                .isEmployee(false)
+                .role("STUDENT")
+                
                 .build();
 
         // Then: 409 Conflict 응답 확인

@@ -143,7 +143,7 @@ public class Course {
         
         if (user.getUserType() == User.UserType.STUDENT) {
             // 재직자인 경우
-            if (user.isEmployee()) {
+            if (user.getIsEmployee()) {
                 return isForEmployees();
             }
             // 구직자인 경우

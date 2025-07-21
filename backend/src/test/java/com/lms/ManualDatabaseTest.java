@@ -1,6 +1,6 @@
 package com.lms;
 
-import com.lms.config.TestJpaConfig;
+
 import com.lms.domain.entities.User;
 import com.lms.domain.entities.Course;
 import com.lms.domain.entities.Company;
@@ -11,7 +11,7 @@ import com.lms.domain.repositories.CompanyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
+
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @ActiveProfiles("test")
-@Import(TestJpaConfig.class)
+
 public class ManualDatabaseTest {
 
     @Autowired
@@ -52,6 +52,7 @@ public class ManualDatabaseTest {
                 .name("테스트 사용자")
                 .userType(User.UserType.STUDENT)
                 .company(savedCompany)
+                .isEmployee(true)
                 .build();
         User savedUser = userRepository.save(user);
         
@@ -72,7 +73,7 @@ public class ManualDatabaseTest {
         
         // 5. 관계 검증
         assertThat(savedUser.getCompany()).isEqualTo(savedCompany);
-        assertThat(savedUser.isEmployee()).isTrue();
+        assertThat(savedUser.getIsEmployee()).isTrue();
         
         // 6. 비즈니스 로직 검증
         assertThat(course.canUserApply(savedUser)).isTrue(); // 재직자가 재직자 과정 신청 가능

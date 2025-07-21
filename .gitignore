@@ -22,6 +22,7 @@ node_modules/
 # Gradle
 .gradle/
 !backend/gradle/wrapper/gradle-wrapper.jar
+*.zip
 
 # Java
 *.class
