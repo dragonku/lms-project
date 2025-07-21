@@ -201,7 +201,9 @@ public class User {
         ACTIVE("활성"),
         INACTIVE("비활성"),
         PENDING("승인대기"),
-        SUSPENDED("정지");
+        PENDING_APPROVAL("가입승인대기"),
+        SUSPENDED("정지"),
+        REJECTED("가입거절");
 
         private final String description;
 

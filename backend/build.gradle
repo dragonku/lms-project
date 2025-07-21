@@ -173,6 +173,7 @@ spotbugsMain {
 checkstyle {
     toolVersion = '10.12.4'
     ignoreFailures = true
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 checkstyleMain {

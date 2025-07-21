@@ -36,7 +36,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<Void>> registerUser(@Valid @RequestBody CreateUserRequest request) {
         createUserUseCase.execute(request);
-        return new ResponseEntity<>(ApiResponse.success("User registered successfully.", null), HttpStatus.CREATED);
+        return new ResponseEntity<>(ApiResponse.success("User registered successfully."), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
@@ -59,7 +59,7 @@ public class AuthController {
             // 현재 인증된 사용자 정보를 가져오기 (SecurityUtils 사용 예정)
             logoutUseCase.execute();
             securityAuditLogger.logLogout(username, httpRequest);
-            return new ResponseEntity<>(ApiResponse.success("Logout successful.", null), HttpStatus.OK);
+            return new ResponseEntity<>(ApiResponse.success("Logout successful."), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(ApiResponse.error("Logout failed"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
