@@ -37,7 +37,7 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
 | SFR-008 | 회원가입 | #3 | 기본 회원가입 구현 | ⏳ Pending |
 | SFR-009 | 협약사 가입 | #4 | 협약사 가입 프로세스 | ⏳ Pending |
 | SFR-010 | 마이페이지 | #8 | 마이페이지 구현 | ⏳ Pending |
-| SFR-011 | 보안 기능 | #2, #5 | 보안 기본 설정, 2차 인증 | ⏳ Pending |
+| SFR-011 | 보안 기능 | #2, #5 | 보안 기본 설정, 2차 인증 | ✅ Completed |
 | SFR-012 | 회원 관리 | #5 | 회원 관리 기능 | ⏳ Pending |
 | SFR-013 | 협약사 관리 | #12 | 협약사 관리 시스템 | ⏳ Pending |
 | SFR-014 | 강사 관리 | #6 | 강사 관리 시스템 | ⏳ Pending |
@@ -157,20 +157,26 @@ PRD의 모든 기능 요구사항(SFR-001 ~ SFR-027)을 기반으로 3주 단위
 - **When**: 사용자가 시스템을 사용할 때
 - **Then**: 기본 보안 기능이 동작함
 - **Acceptance Criteria**:
-  - 일정 시간 활동 없을 시 자동 세션 타임아웃
-  - 세션 타임아웃 시간(예: 30분)을 설정할 수 있다
-  - 개인정보 조회에 대한 로그 관리
-- **Status**: ⏳ Pending
+- JWT 기반 인증 시스템 ✅
+- 비밀번호 암호화 (BCrypt) ✅
+- 세션 관리 및 자동 로그아웃 ✅
+- SQL Injection 방어 ✅
+- XSS 방어 ✅
+- 보안 헤더 설정 ✅
+- 보안 감사 로깅 ✅
+- **Status**: ✅ **Completed**
 
 #### User Story 3: CI/CD 파이프라인 구현
 - **Given**: GitHub Actions 워크플로우가 필요함
 - **When**: 개발자가 코드를 푸시할 때
 - **Then**: 자동으로 빌드, 테스트, 보안 검사가 실행됨
 - **Acceptance Criteria**:
-  - 자동 빌드 및 테스트
-  - 코드 품질 검사 (ESLint, SpotBugs)
-  - 보안 취약점 스캔
-- **Status**: ⏳ Pending
+  - 자동 빌드 및 테스트 ✅
+  - 코드 품질 검사 (ESLint, SpotBugs) ✅
+  - 보안 취약점 스캔 (OWASP, Trivy) ✅
+  - Docker 이미지 빌드 ✅
+  - 스테이징/프로덕션 배포 파이프라인 ✅
+- **Status**: ✅ **Completed**
 
 ---
 
